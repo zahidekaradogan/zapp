@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "315055131282",
+    "project_id": "zapp-23c26",
+    "storage_bucket": "zapp-23c26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315055131282:android:f092ae4efa96ce58faf44b",
+        "android_client_info": {
+          "package_name": "zahidekaradogantelli.com.zapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315055131282-gkt3q6q224f7bf5ugf0ln5d27dh9vfv8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "zahidekaradogantelli.com.zapp",
+            "certificate_hash": "8a924e046406974e979730323c3b5b4a52dd5eb4"
+          }
+        },
+        {
+          "client_id": "315055131282-e2odourmk8oe4vsanodbgu3i86j5mlfi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4q0IM4zMGq2sHJaj_Ib8bXOlWrc0TxAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315055131282-e2odourmk8oe4vsanodbgu3i86j5mlfi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
