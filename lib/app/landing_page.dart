@@ -18,7 +18,7 @@ class LandingPage extends StatelessWidget {
 
     final _userModel = Provider.of<UserModel>(context);
     if (_userModel.state == ViewState.Idle) {
-      if (_userModel.user == null) {
+      if (_userModel.user == null) {                                            //kullanıcı var mı yok mu kontrolünü aslında burada yapıyoruz.
         return SignInPage();
       } else {
         return HomePage(user: _userModel.user);

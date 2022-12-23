@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:zapp/model/user_model.dart';
 import 'auth_base.dart';
@@ -24,7 +23,7 @@ class FirebaseAuthService implements AuthBase {
     if (user == null) {
       return null;
     } else {
-      return User(userID: user.uid);
+      return User(userID: user.uid, email: user.email);
     }
   }
 
@@ -34,8 +33,6 @@ class FirebaseAuthService implements AuthBase {
       final _googleSignIn = GoogleSignIn();
       await _googleSignIn.signOut();
 
-      final _facebookLogin = FacebookLogin();
-      await _facebookLogin.logOut();
 
       await _firebaseAuth.signOut();
       return true;
@@ -79,41 +76,6 @@ class FirebaseAuthService implements AuthBase {
     }
   }
 
-  @override
-  Future<User> signInWithFacebook() async {
-    final _facebookLogin = FacebookLogin();
-
-    FacebookLoginResult _faceResult = await _facebookLogin
-        .logInWithReadPermissions(['public_profile', 'email']);                 //burada facebook tan istenilen bilgiler liste şeklinde belirtilmelidir. Listeye https://developers.facebook.com/docs/permissions/reference linkinden bilgiler eklenebilir.
-
-    switch (_faceResult.status) {
-      case FacebookLoginStatus.loggedIn:
-        if (_faceResult.accessToken != null &&
-            _faceResult.accessToken.isValid()) {
-          AuthResult _firebaseResult = await _firebaseAuth.signInWithCredential(
-              FacebookAuthProvider.getCredential(
-                  accessToken: _faceResult.accessToken.token));
-
-          FirebaseUser _user = _firebaseResult.user;
-          return _userFromFirebase(_user);
-        }else {
-          /* print("access token valid :" +
-              _faceResult.accessToken.isValid().toString());*/
-        }
-
-        break;
-
-      case FacebookLoginStatus.cancelledByUser:
-        print("Kullanıcı facebook girişi iptal etti");
-        break;
-
-      case FacebookLoginStatus.error:
-        print("Hata Çıktı:" + _faceResult.errorMessage);
-        break;
-    }
-
-    return null;
-  }
 
   @override
   Future<User> createUserWithEmailandPassword(String email, String sifre) async{

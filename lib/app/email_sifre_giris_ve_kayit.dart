@@ -81,6 +81,9 @@ class _EmailveSifreLoginPageState extends State<EmailveSifreLoginPage> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             errorText: _userModel.emailHataMesaji != null ? _userModel.emailHataMesaji :null,
+                            /*
+                            doğru olduğunda hata mesajını iptal edip normal bir şekilde işleme devam etmesi için bu şekilde yazdık.
+                            */
                             prefixIcon: Icon(Icons.mail),
                             hintText: 'Email',
                             labelText: 'Email',

@@ -4,6 +4,7 @@ import 'package:zapp/model/user_model.dart';
 import 'package:zapp/services/auth_base.dart';
 import 'package:zapp/services/fake_auth_service.dart';
 import 'package:zapp/services/firebase_auth_service.dart';
+import 'package:zapp/services/firestore_db_service.dart';
 
 import '../locate.dart';
 
@@ -13,8 +14,9 @@ class UserRepository implements AuthBase {
   FirebaseAuthService _firebaseAuthService = locator<FirebaseAuthService>();
   FakeAuthenticationService _fakeAuthenticationService =
       locator<FakeAuthenticationService>();
+  FirestoreDBService _firestoreDBService = locator<FirestoreDBService>();
 
-  AppMode appMode = AppMode.DEBUG;
+  AppMode appMode = AppMode.RELEASE;
 
   @override
   Future<User> currentUser() async {
@@ -48,16 +50,12 @@ class UserRepository implements AuthBase {
     if (appMode == AppMode.DEBUG) {
       return await _fakeAuthenticationService.signInWithGoogle();
     } else {
-      return await _firebaseAuthService.signInWithGoogle();
-    }
-  }
-
-  @override
-  Future<User> signInWithFacebook() async {
-    if (appMode == AppMode.DEBUG) {
-      return await _fakeAuthenticationService.signInWithFacebook();
-    } else {
-      return await _firebaseAuthService.signInWithFacebook();
+      User _user = await _firebaseAuthService.signInWithGoogle();
+      bool _sonuc = await _firestoreDBService.saveUser(_user);
+      if (_sonuc) {
+        return _user;
+      } else
+        return null;
     }
   }
 
@@ -68,8 +66,14 @@ class UserRepository implements AuthBase {
       return await _fakeAuthenticationService.createUserWithEmailandPassword(
           email, sifre);
     } else {
-      return await _firebaseAuthService.createUserWithEmailandPassword(
+      User _user = await _firebaseAuthService.createUserWithEmailandPassword(
           email, sifre);
+      bool _sonuc = await _firestoreDBService.saveUser(
+          _user); //kullanıcı oluşturulunca veri tabanına da kayıt yapılıyor.
+      if (_sonuc) {
+        return _user;
+      } else
+        return null;
     }
   }
 

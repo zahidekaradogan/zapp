@@ -18,12 +18,6 @@ class SignInPage extends StatelessWidget {
     if (_user != null) print("Oturum açan user id: " + _user.userID.toString());
   }
 
-  void _facebookIleGiris(BuildContext context) async {
-    final _userModel = Provider.of<UserModel>(context);
-    User _user = await _userModel.signInWithFacebook();
-    if (_user != null) print("Oturum açan user id: " + _user.userID.toString());
-  }
-
   void _emailVeSifreGiris(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -65,12 +59,6 @@ class SignInPage extends StatelessWidget {
               textColor: Colors.black87,
               butonIcon: Image.asset("images/google-logo.png"),
               onPressed: () => _googleIleGiris(context),
-            ),
-            SocialLoginButton(
-              butonText: "Facebook ile Giriş Yap",
-              butonColor: Color(0xFF334D92),
-              butonIcon: Image.asset("images/facebook-logo.png"),
-              onPressed: () => _facebookIleGiris(context),
             ),
             SocialLoginButton(
               butonText: "Email ve şifre ile Giriş Yap",

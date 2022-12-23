@@ -108,20 +108,6 @@ class UserModel with ChangeNotifier implements AuthBase {
     }
   }
 
-  @override
-  Future<User> signInWithFacebook() async{
-    try {
-      state = ViewState.Busy;
-      _user = await _userRepository.signInWithFacebook();
-      if (_user != null)
-        return _user;
-      else {
-        return null;
-      }
-    } finally {
-      state = ViewState.Idle;
-    }
-  }
 
   @override
   Future<User> createUserWithEmailandPassword(String email, String sifre) async {
@@ -160,7 +146,7 @@ class UserModel with ChangeNotifier implements AuthBase {
     if( sifre.length<6 ){
       sifreHataMesaji = "En az 6 karakter olmalı";
       sonuc = false;
-    } else sifreHataMesaji = null;
+    } else sifreHataMesaji = null;                                              //hata mesajını iptal etmek için null a atadık.
     if(!email.contains('@')){
       emailHataMesaji = "Geçersiz email adresi";
       sonuc = false;
